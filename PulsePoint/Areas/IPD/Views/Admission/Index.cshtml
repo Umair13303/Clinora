@@ -1,0 +1,169 @@
+@{
+    ViewData["Title"] = "IPD Patient Admission";
+}
+
+<div class="dashboard-wrapper">
+    <!-- Header Banner -->
+    <div class="welcome-banner">
+        <div>
+            <h2>IPD Patient Admission Registry</h2>
+            <p>Active Facility: <strong>@(ViewBag.BranchName ?? "Central Facility")</strong> • Clinical Staff: <strong>@(ViewBag.FullName ?? "Staff")</strong></p>
+        </div>
+        <div class="banner-badges">
+            <span class="date-badge">Route: <code>/ipd/admission</code></span>
+        </div>
+    </div>
+
+    <!-- Active Admissions Quick Overview -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">🏥</div>
+                <div class="metric-content">
+                    <span class="metric-label">Current IPD Admissions</span>
+                    <span class="metric-number">38 Patients</span>
+                    <span class="metric-subtext">Active ward stays</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">➕</div>
+                <div class="metric-content">
+                    <span class="metric-label">Admitted Today</span>
+                    <span class="metric-number">7 Patients</span>
+                    <span class="metric-subtext">New registrations</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">⏳</div>
+                <div class="metric-content">
+                    <span class="metric-label">Pending Bed Allocation</span>
+                    <span class="metric-number">2 Patients</span>
+                    <span class="metric-subtext">Emergency transfer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Admissions Table -->
+    <div class="section-title">
+        <h3>Recent Inpatient Admissions</h3>
+    </div>
+    <div class="status-table-card">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Admission ID</th>
+                    <th>Patient Full Name</th>
+                    <th>Ward / Room</th>
+                    <th>Admitting Doctor</th>
+                    <th>Admission Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>#IPD-1092</code></td>
+                    <td><strong>Eleanor Vance</strong> (Female, 45)</td>
+                    <td>ICU - Bed 04</td>
+                    <td>Dr. Sarah Jenkins</td>
+                    <td>Today, 08:30 AM</td>
+                    <td><span class="badge bg-danger-subtle text-danger">Critical Care</span></td>
+                </tr>
+                <tr>
+                    <td><code>#IPD-1091</code></td>
+                    <td><strong>Arthur Pendelton</strong> (Male, 62)</td>
+                    <td>Ward A - Bed 12</td>
+                    <td>Dr. Robert Hayes</td>
+                    <td>Today, 10:15 AM</td>
+                    <td><span class="badge bg-success-subtle text-success">Admitted</span></td>
+                </tr>
+                <tr>
+                    <td><code>#IPD-1090</code></td>
+                    <td><strong>Maria Santos</strong> (Female, 29)</td>
+                    <td>Maternity - Bed 03</td>
+                    <td>Dr. Emily Clark</td>
+                    <td>Yesterday, 04:00 PM</td>
+                    <td><span class="badge bg-primary-subtle text-primary">Stable</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .welcome-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        border-radius: 14px;
+        padding: 1.75rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .welcome-banner h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .welcome-banner p { color: #94a3b8; font-size: 0.95rem; margin: 0; }
+    .welcome-banner strong { color: #38bdf8; }
+    .date-badge {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #e2e8f0;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+    }
+    .date-badge code { color: #38bdf8; background: none; }
+    .metric-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .metric-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+    .metric-content { display: flex; flex-direction: column; }
+    .metric-label { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+    .metric-number { font-size: 1.4rem; font-weight: 700; color: #0f172a; line-height: 1.2; }
+    .metric-subtext { font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem; }
+    .section-title h3 { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem; }
+    .status-table-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .status-table-card table th {
+        background: #f8fafc;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #64748b;
+        letter-spacing: 0.5px;
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .status-table-card table td {
+        padding: 1rem 1.25rem;
+        font-size: 0.88rem;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+    }
+</style>

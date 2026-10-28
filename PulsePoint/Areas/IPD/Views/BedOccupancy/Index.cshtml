@@ -1,0 +1,210 @@
+@{
+    ViewData["Title"] = "IPD Bed Occupancy Status";
+}
+
+<div class="dashboard-wrapper">
+    <!-- Header Banner -->
+    <div class="welcome-banner">
+        <div>
+            <h2>Ward Bed Occupancy Overview</h2>
+            <p>Active Facility: <strong>@(ViewBag.BranchName ?? "Central Facility")</strong> • Real-time bed availability monitoring</p>
+        </div>
+        <div class="banner-badges">
+            <span class="date-badge">Route: <code>/ipd/bed-occupancy</code></span>
+        </div>
+    </div>
+
+    <!-- Bed Metrics Grid -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">🛏️</div>
+                <div class="metric-content">
+                    <span class="metric-label">Total Hospital Beds</span>
+                    <span class="metric-number">120 Beds</span>
+                    <span class="metric-subtext">Across all wards</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(239, 68, 68, 0.12); color: #ef4444;">🔴</div>
+                <div class="metric-content">
+                    <span class="metric-label">Occupied Beds</span>
+                    <span class="metric-number">94 Beds</span>
+                    <span class="metric-subtext">78.3% Occupancy</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">🟢</div>
+                <div class="metric-content">
+                    <span class="metric-label">Available Beds</span>
+                    <span class="metric-number">26 Beds</span>
+                    <span class="metric-subtext">Ready for admission</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">🧹</div>
+                <div class="metric-content">
+                    <span class="metric-label">Cleaning / Prep</span>
+                    <span class="metric-number">4 Beds</span>
+                    <span class="metric-subtext">Disinfected & pending</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ward Capacity Breakdown -->
+    <div class="section-title">
+        <h3>Ward Capacity Status</h3>
+    </div>
+    <div class="status-table-card">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Ward / Unit</th>
+                    <th>Total Beds</th>
+                    <th>Occupied</th>
+                    <th>Available</th>
+                    <th>Occupancy Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Intensive Care Unit (ICU)</strong></td>
+                    <td>12</td>
+                    <td>10</td>
+                    <td>2</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="progress flex-grow-1" style="height: 6px; width: 120px;">
+                                <div class="progress-bar bg-danger" style="width: 83%;"></div>
+                            </div>
+                            <span class="badge bg-danger-subtle text-danger">83%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>General Medicine - Ward A</strong></td>
+                    <td>50</td>
+                    <td>32</td>
+                    <td>18</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="progress flex-grow-1" style="height: 6px; width: 120px;">
+                                <div class="progress-bar bg-success" style="width: 64%;"></div>
+                            </div>
+                            <span class="badge bg-success-subtle text-success">64%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Surgical Ward - Ward B</strong></td>
+                    <td>38</td>
+                    <td>35</td>
+                    <td>3</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="progress flex-grow-1" style="height: 6px; width: 120px;">
+                                <div class="progress-bar bg-warning" style="width: 92%;"></div>
+                            </div>
+                            <span class="badge bg-warning-subtle text-warning">92%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Pediatric Unit</strong></td>
+                    <td>20</td>
+                    <td>17</td>
+                    <td>3</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="progress flex-grow-1" style="height: 6px; width: 120px;">
+                                <div class="progress-bar bg-primary" style="width: 85%;"></div>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary">85%</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .welcome-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        border-radius: 14px;
+        padding: 1.75rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .welcome-banner h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .welcome-banner p { color: #94a3b8; font-size: 0.95rem; margin: 0; }
+    .welcome-banner strong { color: #38bdf8; }
+    .date-badge {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #e2e8f0;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+    }
+    .date-badge code { color: #38bdf8; background: none; }
+    .metric-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .metric-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+    .metric-content { display: flex; flex-direction: column; }
+    .metric-label { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+    .metric-number { font-size: 1.4rem; font-weight: 700; color: #0f172a; line-height: 1.2; }
+    .metric-subtext { font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem; }
+    .section-title h3 { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem; }
+    .status-table-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .status-table-card table th {
+        background: #f8fafc;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #64748b;
+        letter-spacing: 0.5px;
+        padding: 0.85rem 1.25rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .status-table-card table td {
+        padding: 1rem 1.25rem;
+        font-size: 0.88rem;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+    }
+</style>

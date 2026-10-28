@@ -1,0 +1,171 @@
+@model PulsePoint.Areas.Security.Models.LoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "PulsePoint HMS - Hospital Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 10% 20%, #0d1b2a 0%, #1b263b 90%);
+            color: #e0e1dd;
+            padding: 1rem;
+        }
+        .login-card {
+            background: rgba(27, 38, 59, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+        }
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .brand-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+        }
+        .brand-title { font-size: 1.6rem; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; }
+        .brand-subtitle { font-size: 0.85rem; color: #778da9; margin-top: 0.25rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; font-size: 0.85rem; font-weight: 600; color: #e0e1dd; margin-bottom: 0.45rem; }
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(13, 27, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .form-control:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2);
+        }
+        select.form-control option { background: #0d1b2a; color: #fff; }
+        .btn-submit {
+            width: 100%;
+            padding: 0.85rem;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            margin-top: 0.5rem;
+        }
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+        }
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+        .validation-msg { color: #fca5a5; font-size: 0.75rem; margin-top: 0.25rem; display: block; }
+        .demo-credentials {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: #778da9;
+            text-align: center;
+        }
+        .demo-credentials code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #00b4d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="brand-header">
+            <div class="brand-icon">✚</div>
+            <h1 class="brand-title">PulsePoint HMS</h1>
+            <p class="brand-subtitle">Hospital Management & Clinical Portal</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert-error">
+                @Model.ErrorMessage
+            </div>
+        }
+
+        <form asp-area="Security" asp-controller="Auth" asp-action="Login" method="post" id="loginForm">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="LocationId">Hospital / Branch Location</label>
+                <select asp-for="LocationId" asp-items="Model.Locations" class="form-control" id="locationSelect">
+                    <option value="" disabled selected>-- Select Hospital Facility --</option>
+                </select>
+                <span asp-validation-for="LocationId" class="validation-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Username">Clinical Username</label>
+                <input asp-for="Username" class="form-control" placeholder="Enter username (e.g. admin)" id="usernameInput" />
+                <span asp-validation-for="Username" class="validation-msg"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password">Security Password</label>
+                <div style="position: relative;">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Enter password (e.g. Admin@123)" id="passwordInput" style="padding-right: 42px;" />
+                    <button type="button" id="togglePasswordBtn" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.1rem; line-height: 1;" title="Toggle Password Visibility">👁️</button>
+                </div>
+                <span asp-validation-for="Password" class="validation-msg"></span>
+            </div>
+
+            <button type="submit" class="btn-submit" id="signInBtn">
+                Sign In to Facility
+            </button>
+        </form>
+
+        <div class="demo-credentials">
+            Default Admin: <code>admin</code> | Password: <code>Admin@123</code>
+        </div>
+    </div>
+
+    <script src="~/js/security/auth.js"></script>
+</body>
+</html>
